@@ -1,0 +1,78 @@
+<script>
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(";");
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  let guestLink =
+    '<li class="nav-item">\
+						<a class="nav-link" href="../index.php?do=signup"><i class="bi bi-person-add"></i> Sign up</a>\
+					 </li>\
+					 <li class="nav-item">\
+						<a class="nav-link" href="../index.php?do=signin"><i class="bi bi-box-arrow-in-right"></i> Sign in</a>\
+					 </li>';
+  let adminLink =
+    '<li class="nav-item dropdown">\
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">\
+							<i class="bi bi-gear"></i> Management\
+						</a>\
+						<ul class="dropdown-menu">\
+							<li><a class="dropdown-item" href="../categories.php"><i class="bi bi-tags"></i> Categories</a></li>\
+							<li><a class="dropdown-item" href="../products.php"><i class="bi bi-bag-dash"></i> Product</a></li>\
+              <li><hr class="dropdown-divider"></li>\
+							<li><a class="dropdown-item" href="account.html"><i class="bi bi-people"></i> My account</a></li>\
+						</ul>\
+					 </li>\
+					 <li class="nav-item">\
+						<a class="nav-link" href="../signout.php"><i class="bi bi-box-arrow-right"></i> Log out (' +
+    getCookie("email") +
+    ")</a>\
+					 </li>";
+</script>
+
+
+<!--nav class="navbar navbar-expand-lg bsg-success"-->
+<nav class="navbar navbar-expand-lg  navbar-dark" style="background-color: midnightblue;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><i class="bi bi-cart-dash-fill"></i> Second-hands Store Website</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li id="auth-menu" class="nav-item">
+          <a class="nav-link active" href="products.html"><i class="bi bi-map"></i> Stores</a>
+        </li>
+        
+        <script>
+          if (getCookie("uid") != "") {
+            $(adminLink).insertAfter("#auth-menu");
+          } else {
+            $(guestLink).insertAfter("#auth-menu");
+          }
+        </script>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Find product" aria-label="Search" />
+        <button class="btn btn-outline-success" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>
